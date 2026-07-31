@@ -4,6 +4,8 @@ import Preloader from "./components/sections/Preloader";
 import Hero from "./components/sections/Hero";
 import MenuSection from "./components/sections/MenuSection";
 import WorksSection from "./components/sections/WorksSection";
+import AboutSection from "./components/sections/AboutSection";
+import ContactSection from "./components/sections/ContactSection";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,6 +63,28 @@ function App() {
               transition={{ duration: 0.5 }}
             >
               <WorksSection onClose={() => setCurrentScreen("menu")} />
+            </motion.div>
+          )}
+          {currentScreen === "about" && (
+            <motion.div
+              key="about"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <AboutSection onClose={() => setCurrentScreen("menu")} />
+            </motion.div>
+          )}
+          {currentScreen === "contact" && (
+            <motion.div
+              key="contact"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <ContactSection onClose={() => setCurrentScreen("menu")} />
             </motion.div>
           )}
         </AnimatePresence>
