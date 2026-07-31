@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-yellow: #eedd3b;
+  --color-brand-blue: #150ff5;
+  --color-brand-orange: #efa226;
+  --color-brand-cream: #f4f3ed; /* Thêm màu nền Kem (Off-white) */
+
+  --font-display: "Fredoka One", cursive;
+}
+
+body {
+  background-color: var(--color-brand-yellow);
+  overflow-x: hidden;
+}

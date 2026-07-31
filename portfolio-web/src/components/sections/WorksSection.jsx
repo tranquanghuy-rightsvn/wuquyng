@@ -1,0 +1,281 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Star from "../ui/Star";
+import Sunburst from "../ui/Sunburst";
+import ChatBubble from "../ui/ChatBubble";
+import ProjectDetail from "./ProjectDetail";
+
+const PROJECTS_DATA = {
+  phuc: {
+    title: "Phuc Long",
+    projectName: "Phuc Long",
+    date: "2023",
+    descriptions: [
+      "A collaborative packaging redesign project for Phuc Long, focused on reimagining the brand's tea gift box packaging.",
+      "After exploring three design directions, we selected and refined a final concept featuring a soft, youthful, and feminine visual style.",
+    ],
+  },
+  personal: {
+    title: "Personal Projects",
+    projectName: "Various",
+    date: "2022 - 2023",
+    descriptions: [
+      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
+    ],
+  },
+  dogout: {
+    title: "Dog Out!",
+    projectName: "Dog Out",
+    date: "2023",
+    descriptions: [
+      "A collaborative game development project focused on creating Dog Out, a 2D platform runner inspired by the gameplay mechanics of Google Chrome's Dinosaur Game.",
+    ],
+  },
+  foxy: {
+    title: "Foxy",
+    projectName: "Phuc Long",
+    date: "2023",
+    descriptions: [
+      "A collaborative UX/UI project focused on creating a friendly English-learning mobile application for Vietnamese users.",
+      "My contribution centered on the visual design aspects of the project, including the user interface, mascot design, emoji system.",
+    ],
+  },
+  cjj: {
+    title: "CJJ",
+    projectName: "Phuc Long",
+    date: "2023",
+    descriptions: [
+      "Citadel Jazz Jam is a branding project for a jazz music festival inspired by the fusion of jazz and Vietnamese cultural heritage.",
+      "The branding system is applied across stationery, social media, wayfinding signage, and floor plans, creating a consistent experience.",
+    ],
+  },
+  drp: {
+    title: "DRP",
+    projectName: "DRP System",
+    date: "2023",
+    descriptions: [
+      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
+    ],
+  },
+};
+
+// Đã thêm prop onClose để chuyển cảnh quay lại Menu
+export default function WorksSection({ onClose }) {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [hoveredProject, setHoveredProject] = useState(null);
+
+  const defaultTextStyle =
+    "text-2xl md:text-[2rem] font-display font-black tracking-wide px-4 text-center leading-none";
+
+  return (
+    <section
+      id="works"
+      className="relative min-h-[100vh] w-full bg-brand-cream overflow-hidden"
+    >
+      {/* Nút Dấu Trừ quay lại màn hình Menu */}
+      {!selectedProject && (
+        <div
+          onClick={onClose}
+          className="absolute top-8 right-8 md:top-12 md:right-12 cursor-pointer z-50 hover:scale-110 transition-transform"
+        >
+          <Star className="w-16 h-16 text-brand-blue drop-shadow-md">
+            <div className="w-5 h-1.5 bg-brand-yellow rounded-full"></div>
+          </Star>
+        </div>
+      )}
+
+      <div className="absolute inset-0 w-full h-full">
+        {/* ======================= 1. PHUC ======================= */}
+        <div
+          className={`absolute top-[18%] left-[5%] md:left-[12%] w-48 h-48 md:w-[18rem] md:h-[18rem] transition-all cursor-pointer ${hoveredProject === "phuc" ? "z-50" : "z-20"}`}
+          onMouseEnter={() => setHoveredProject("phuc")}
+          onMouseLeave={() => setHoveredProject(null)}
+          onClick={() => setSelectedProject(PROJECTS_DATA.phuc)}
+        >
+          <Star className="w-full h-full text-brand-blue -rotate-12 hover:scale-105 transition-transform drop-shadow-md">
+            <span className={`${defaultTextStyle} text-white`}>
+              Phuc
+              <br />
+              ...
+            </span>
+          </Star>
+          <AnimatePresence>
+            {hoveredProject === "phuc" && (
+              <motion.div
+                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 15, scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="absolute bottom-[65%] left-[45%] w-72 md:w-80 pointer-events-none"
+              >
+                <ChatBubble
+                  title="Phuc Long"
+                  description={PROJECTS_DATA.phuc.descriptions[0]}
+                  tailPosition="bottom-left"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ======================= 2. PERSONAL PROJECT ======================= */}
+        <div
+          className={`absolute top-[12%] left-[30%] md:left-[32%] w-48 h-48 md:w-[20rem] md:h-[20rem] transition-all cursor-pointer ${hoveredProject === "personal" ? "z-50" : "z-10"}`}
+          onMouseEnter={() => setHoveredProject("personal")}
+          onMouseLeave={() => setHoveredProject(null)}
+          onClick={() => setSelectedProject(PROJECTS_DATA.personal)}
+        >
+          <Sunburst className="w-full h-full text-brand-yellow rotate-6 hover:scale-105 transition-transform drop-shadow-md">
+            <span className={`${defaultTextStyle} text-brand-blue`}>
+              Personal
+              <br />
+              Project
+            </span>
+          </Sunburst>
+          <AnimatePresence>
+            {hoveredProject === "personal" && (
+              <motion.div
+                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 15, scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="absolute bottom-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
+              >
+                <ChatBubble
+                  title="Personal Projects"
+                  description={PROJECTS_DATA.personal.descriptions[0]}
+                  tailPosition="bottom-left"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ======================= 3. DOG OUT! ======================= */}
+        <div
+          className={`absolute top-[15%] right-[5%] md:right-[15%] w-48 h-48 md:w-[20rem] md:h-[20rem] transition-all cursor-pointer ${hoveredProject === "dogout" ? "z-50" : "z-20"}`}
+          onMouseEnter={() => setHoveredProject("dogout")}
+          onMouseLeave={() => setHoveredProject(null)}
+          onClick={() => setSelectedProject(PROJECTS_DATA.dogout)}
+        >
+          <Star className="w-full h-full text-brand-blue rotate-12 hover:scale-105 transition-transform drop-shadow-md">
+            <span className={`${defaultTextStyle} text-white`}>Dog Out!</span>
+          </Star>
+          <AnimatePresence>
+            {hoveredProject === "dogout" && (
+              <motion.div
+                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 15, scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="absolute bottom-[65%] right-[45%] w-72 md:w-80 pointer-events-none"
+              >
+                <ChatBubble
+                  title="Dog Out!"
+                  description={PROJECTS_DATA.dogout.descriptions[0]}
+                  tailPosition="bottom-right"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ======================= 4. FOXY ======================= */}
+        <div
+          className={`absolute bottom-[15%] left-[8%] md:left-[15%] w-56 h-56 md:w-[24rem] md:h-[24rem] transition-all cursor-pointer ${hoveredProject === "foxy" ? "z-50" : "z-10"}`}
+          onMouseEnter={() => setHoveredProject("foxy")}
+          onMouseLeave={() => setHoveredProject(null)}
+          onClick={() => setSelectedProject(PROJECTS_DATA.foxy)}
+        >
+          <Sunburst className="w-full h-full text-brand-yellow -rotate-6 hover:scale-105 transition-transform drop-shadow-md">
+            <span className={`${defaultTextStyle} text-brand-blue`}>Foxy</span>
+          </Sunburst>
+          <AnimatePresence>
+            {hoveredProject === "foxy" && (
+              <motion.div
+                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 15, scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="absolute bottom-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
+              >
+                <ChatBubble
+                  title="Foxy"
+                  description={PROJECTS_DATA.foxy.descriptions[0]}
+                  tailPosition="bottom-left"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ======================= 5. CJJ ======================= */}
+        <div
+          className={`absolute bottom-[5%] left-[35%] md:left-[38%] w-64 h-64 md:w-[28rem] md:h-[28rem] transition-all cursor-pointer ${hoveredProject === "cjj" ? "z-50" : "z-30"}`}
+          onMouseEnter={() => setHoveredProject("cjj")}
+          onMouseLeave={() => setHoveredProject(null)}
+          onClick={() => setSelectedProject(PROJECTS_DATA.cjj)}
+        >
+          <Star className="w-full h-full text-brand-blue rotate-12 hover:scale-105 transition-transform drop-shadow-md">
+            <span className={`${defaultTextStyle} text-white`}>CJJ</span>
+          </Star>
+          <AnimatePresence>
+            {hoveredProject === "cjj" && (
+              <motion.div
+                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 15, scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="absolute bottom-[75%] right-[45%] w-80 md:w-[24rem] pointer-events-none"
+              >
+                <ChatBubble
+                  title="Citadel Jazz Jam"
+                  description={PROJECTS_DATA.cjj.descriptions[0]}
+                  tailPosition="bottom-right"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ======================= 6. DRP ======================= */}
+        <div
+          className={`absolute bottom-[20%] right-[10%] md:right-[15%] w-52 h-52 md:w-[22rem] md:h-[22rem] transition-all cursor-pointer ${hoveredProject === "drp" ? "z-50" : "z-10"}`}
+          onMouseEnter={() => setHoveredProject("drp")}
+          onMouseLeave={() => setHoveredProject(null)}
+          onClick={() => setSelectedProject(PROJECTS_DATA.drp)}
+        >
+          <Sunburst className="w-full h-full text-brand-yellow rotate-12 hover:scale-105 transition-transform drop-shadow-md">
+            <span className={`${defaultTextStyle} text-brand-blue`}>DRP</span>
+          </Sunburst>
+          <AnimatePresence>
+            {hoveredProject === "drp" && (
+              <motion.div
+                initial={{ opacity: 0, y: -15, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -15, scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="absolute top-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
+              >
+                <ChatBubble
+                  title="DRP"
+                  description={PROJECTS_DATA.drp.descriptions[0]}
+                  tailPosition="top-left"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectDetail
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
