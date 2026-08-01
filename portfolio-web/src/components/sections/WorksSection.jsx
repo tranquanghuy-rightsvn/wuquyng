@@ -59,18 +59,19 @@ const PROJECTS_DATA = {
   },
 };
 
-// Đã thêm prop onClose để chuyển cảnh quay lại Menu
 export default function WorksSection({ onClose }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [hoveredProject, setHoveredProject] = useState(null);
 
+  // Thu nhỏ chữ trên mobile, giữ nguyên trên Desktop (md:text-[2rem])
   const defaultTextStyle =
-    "text-2xl md:text-[2rem] font-display font-black tracking-wide px-4 text-center leading-none";
+    "text-[1.1rem] sm:text-2xl md:text-[2rem] font-display font-black tracking-wide px-2 md:px-4 text-center leading-none";
 
   return (
     <section
       id="works"
-      className="relative min-h-[100vh] w-full bg-brand-cream overflow-hidden"
+      // Kéo dài màn hình Mobile (140vh) để xếp Zig-zag, Desktop giữ nguyên (100vh)
+      className="relative min-h-[140vh] md:min-h-[100vh] w-full bg-brand-cream overflow-hidden"
     >
       {/* Nút Dấu Trừ quay lại màn hình Menu */}
       {!selectedProject && (
@@ -78,21 +79,23 @@ export default function WorksSection({ onClose }) {
           onClick={onClose}
           className="absolute top-8 right-8 md:top-12 md:right-12 cursor-pointer z-50 hover:scale-110 transition-transform"
         >
-          <Star className="w-16 h-16 text-brand-blue drop-shadow-md">
-            <div className="w-5 h-1.5 bg-brand-yellow rounded-full"></div>
+          {/* Thu nhỏ nút tắt trên mobile */}
+          <Star className="w-12 h-12 md:w-16 md:h-16 text-brand-blue drop-shadow-md">
+            <div className="w-4 h-1 md:w-5 md:h-1.5 bg-brand-yellow rounded-full"></div>
           </Star>
         </div>
       )}
 
       <div className="absolute inset-0 w-full h-full">
-        {/* ======================= 1. PHUC ======================= */}
+        {/* ======================= 1. PHUC (Mobile: TRÁI) ======================= */}
         <div
-          className={`absolute top-[18%] left-[5%] md:left-[12%] w-48 h-48 md:w-[18rem] md:h-[18rem] transition-all cursor-pointer ${hoveredProject === "phuc" ? "z-50" : "z-20"}`}
+          // Mobile: top-3% left-5% w-32 h-32 | Desktop: Giữ nguyên top-12% left-12%
+          className={`absolute top-[3%] left-[5%] md:top-[12%] md:left-[12%] w-32 h-32 md:w-[18rem] md:h-[18rem] transition-all cursor-pointer ${hoveredProject === "phuc" ? "z-50" : "z-10"}`}
           onMouseEnter={() => setHoveredProject("phuc")}
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.phuc)}
         >
-          <Star className="w-full h-full text-brand-blue -rotate-12 hover:scale-105 transition-transform drop-shadow-md">
+          <Star className="w-full h-full text-brand-blue rotate-12 md:hover:scale-105 transition-transform drop-shadow-md">
             <span className={`${defaultTextStyle} text-white`}>
               Phuc
               <br />
@@ -106,7 +109,7 @@ export default function WorksSection({ onClose }) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="absolute bottom-[65%] left-[45%] w-72 md:w-80 pointer-events-none"
+                className="hidden md:block absolute bottom-[65%] left-[45%] w-72 md:w-80 pointer-events-none"
               >
                 <ChatBubble
                   title="Phuc Long"
@@ -118,14 +121,15 @@ export default function WorksSection({ onClose }) {
           </AnimatePresence>
         </div>
 
-        {/* ======================= 2. PERSONAL PROJECT ======================= */}
+        {/* ======================= 2. PERSONAL PROJECT (Mobile: PHẢI) ======================= */}
         <div
-          className={`absolute top-[12%] left-[30%] md:left-[32%] w-48 h-48 md:w-[20rem] md:h-[20rem] transition-all cursor-pointer ${hoveredProject === "personal" ? "z-50" : "z-10"}`}
+          // Mobile: top-18% right-5% | Desktop: Reset right-auto, dùng left-32%
+          className={`absolute top-[18%] right-[5%] md:top-[12%] md:right-auto md:left-[32%] w-36 h-36 md:w-[18rem] md:h-[18rem] transition-all cursor-pointer ${hoveredProject === "personal" ? "z-50" : "z-20"}`}
           onMouseEnter={() => setHoveredProject("personal")}
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.personal)}
         >
-          <Sunburst className="w-full h-full text-brand-yellow rotate-6 hover:scale-105 transition-transform drop-shadow-md">
+          <Sunburst className="w-full h-full text-brand-yellow -rotate-2 md:hover:scale-105 transition-transform drop-shadow-md">
             <span className={`${defaultTextStyle} text-brand-blue`}>
               Personal
               <br />
@@ -139,7 +143,7 @@ export default function WorksSection({ onClose }) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="absolute bottom-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
+                className="hidden md:block absolute bottom-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
               >
                 <ChatBubble
                   title="Personal Projects"
@@ -151,14 +155,15 @@ export default function WorksSection({ onClose }) {
           </AnimatePresence>
         </div>
 
-        {/* ======================= 3. DOG OUT! ======================= */}
+        {/* ======================= 3. DOG OUT! (Mobile: TRÁI) ======================= */}
         <div
-          className={`absolute top-[15%] right-[5%] md:right-[15%] w-48 h-48 md:w-[20rem] md:h-[20rem] transition-all cursor-pointer ${hoveredProject === "dogout" ? "z-50" : "z-20"}`}
+          // Mobile: top-33% left-5% | Desktop: Reset left-auto, dùng right-8%
+          className={`absolute top-[33%] left-[5%] md:top-[15%] md:left-auto md:right-[8%] w-32 h-32 md:w-[18rem] md:h-[18rem] transition-all cursor-pointer ${hoveredProject === "dogout" ? "z-50" : "z-20"}`}
           onMouseEnter={() => setHoveredProject("dogout")}
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.dogout)}
         >
-          <Star className="w-full h-full text-brand-blue rotate-12 hover:scale-105 transition-transform drop-shadow-md">
+          <Star className="w-full h-full text-brand-blue -rotate-12 md:hover:scale-105 transition-transform drop-shadow-md">
             <span className={`${defaultTextStyle} text-white`}>Dog Out!</span>
           </Star>
           <AnimatePresence>
@@ -168,7 +173,7 @@ export default function WorksSection({ onClose }) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="absolute bottom-[65%] right-[45%] w-72 md:w-80 pointer-events-none"
+                className="hidden md:block absolute bottom-[65%] right-[45%] w-72 md:w-80 pointer-events-none"
               >
                 <ChatBubble
                   title="Dog Out!"
@@ -180,14 +185,15 @@ export default function WorksSection({ onClose }) {
           </AnimatePresence>
         </div>
 
-        {/* ======================= 4. FOXY ======================= */}
+        {/* ======================= 4. FOXY (Mobile: PHẢI) ======================= */}
         <div
-          className={`absolute bottom-[15%] left-[8%] md:left-[15%] w-56 h-56 md:w-[24rem] md:h-[24rem] transition-all cursor-pointer ${hoveredProject === "foxy" ? "z-50" : "z-10"}`}
+          // Mobile: top-48% right-5% | Desktop: Dùng bottom-10% left-15%
+          className={`absolute top-[48%] right-[5%] md:top-auto md:bottom-[10%] md:right-auto md:left-[15%] w-40 h-40 md:w-[21rem] md:h-[21rem] transition-all cursor-pointer ${hoveredProject === "foxy" ? "z-50" : "z-20"}`}
           onMouseEnter={() => setHoveredProject("foxy")}
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.foxy)}
         >
-          <Sunburst className="w-full h-full text-brand-yellow -rotate-6 hover:scale-105 transition-transform drop-shadow-md">
+          <Sunburst className="w-full h-full text-brand-yellow md:hover:scale-105 transition-transform drop-shadow-md">
             <span className={`${defaultTextStyle} text-brand-blue`}>Foxy</span>
           </Sunburst>
           <AnimatePresence>
@@ -197,7 +203,7 @@ export default function WorksSection({ onClose }) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="absolute bottom-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
+                className="hidden md:block absolute bottom-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
               >
                 <ChatBubble
                   title="Foxy"
@@ -209,14 +215,15 @@ export default function WorksSection({ onClose }) {
           </AnimatePresence>
         </div>
 
-        {/* ======================= 5. CJJ ======================= */}
+        {/* ======================= 5. CJJ (Mobile: TRÁI) ======================= */}
         <div
-          className={`absolute bottom-[5%] left-[35%] md:left-[38%] w-64 h-64 md:w-[28rem] md:h-[28rem] transition-all cursor-pointer ${hoveredProject === "cjj" ? "z-50" : "z-30"}`}
+          // Mobile: top-65% left-5% | Desktop: Dùng bottom-12% left-38%
+          className={`absolute top-[65%] left-[5%] md:top-auto md:bottom-[12%] md:left-[38%] w-44 h-44 md:w-[23rem] md:h-[23rem] transition-all cursor-pointer ${hoveredProject === "cjj" ? "z-50" : "z-30"}`}
           onMouseEnter={() => setHoveredProject("cjj")}
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.cjj)}
         >
-          <Star className="w-full h-full text-brand-blue rotate-12 hover:scale-105 transition-transform drop-shadow-md">
+          <Star className="w-full h-full text-brand-blue rotate-12 md:hover:scale-105 transition-transform drop-shadow-md">
             <span className={`${defaultTextStyle} text-white`}>CJJ</span>
           </Star>
           <AnimatePresence>
@@ -226,7 +233,7 @@ export default function WorksSection({ onClose }) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="absolute bottom-[75%] right-[45%] w-80 md:w-[24rem] pointer-events-none"
+                className="hidden md:block absolute bottom-[75%] right-[45%] w-80 md:w-[24rem] pointer-events-none"
               >
                 <ChatBubble
                   title="Citadel Jazz Jam"
@@ -238,14 +245,15 @@ export default function WorksSection({ onClose }) {
           </AnimatePresence>
         </div>
 
-        {/* ======================= 6. DRP ======================= */}
+        {/* ======================= 6. DRP (Mobile: PHẢI) ======================= */}
         <div
-          className={`absolute bottom-[20%] right-[10%] md:right-[15%] w-52 h-52 md:w-[22rem] md:h-[22rem] transition-all cursor-pointer ${hoveredProject === "drp" ? "z-50" : "z-10"}`}
+          // Mobile: top-82% right-5% | Desktop: Dùng bottom-20% right-18%
+          className={`absolute top-[82%] right-[5%] md:top-auto md:bottom-[20%] md:right-[18%] w-36 h-36 md:w-[22rem] md:h-[22rem] transition-all cursor-pointer ${hoveredProject === "drp" ? "z-50" : "z-40"}`}
           onMouseEnter={() => setHoveredProject("drp")}
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.drp)}
         >
-          <Sunburst className="w-full h-full text-brand-yellow rotate-12 hover:scale-105 transition-transform drop-shadow-md">
+          <Sunburst className="w-full h-full text-brand-yellow md:hover:scale-105 transition-transform drop-shadow-md">
             <span className={`${defaultTextStyle} text-brand-blue`}>DRP</span>
           </Sunburst>
           <AnimatePresence>
@@ -255,7 +263,7 @@ export default function WorksSection({ onClose }) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -15, scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="absolute top-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
+                className="hidden md:block absolute top-[75%] left-[45%] w-72 md:w-80 pointer-events-none"
               >
                 <ChatBubble
                   title="DRP"

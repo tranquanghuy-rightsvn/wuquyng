@@ -1,14 +1,14 @@
 import Sparkle from "../ui/Sparkle";
-import BlobStar from "../ui/BlobStar";
+import Sunburst from "../ui/Sunburst"; // Đã đổi thành ngôi sao 8 cánh của bạn
 
 export default function Hero({ onNext }) {
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-center px-6 sm:px-10 md:px-24 py-10">
-      {/* Các khối Cam trang trí – nhỏ hơn trên mobile */}
-      <BlobStar className="w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] -top-20 -left-20 md:-top-24 md:-left-32 transform -rotate-12" />
-      <BlobStar className="w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] -bottom-24 -right-20 md:-bottom-48 md:-right-32 transform rotate-12" />
+      {/* Các khối Cam trang trí: Dùng Sunburst 8 cánh + màu text-brand-orange + absolute z-0 */}
+      <Sunburst className="absolute z-0 text-brand-orange w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] -top-20 -left-20 md:-top-24 md:-left-32 transform -rotate-12" />
+      <Sunburst className="absolute z-0 text-brand-orange w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] -bottom-24 -right-20 md:-bottom-48 md:-right-32 transform rotate-12" />
 
-      {/* Rắc tia sáng */}
+      {/* Rắc tia sáng (Giữ nguyên 100% code của bạn) */}
       <Sparkle className="w-8 h-8 sm:w-12 sm:h-12 top-4 left-10 sm:top-10 sm:left-64" />
       <Sparkle className="w-12 h-12 sm:w-20 sm:h-20 top-12 left-1/2 transform -translate-x-1/2 sm:top-24" />
       <Sparkle className="w-6 h-6 sm:w-10 sm:h-10 top-1/4 right-4 sm:right-8 md:right-32" />
@@ -35,8 +35,8 @@ export default function Hero({ onNext }) {
           VU THUY
         </h1>
 
-        <div className="md:ml-4 max-w-xs">
-          <p className="text-base sm:text-lg md:text-xl font-black leading-tight">
+        <div className="max-w-xs ml-0 sm:ml-2 md:ml-110">
+          <p className="text-base sm:text-lg md:text-xl font-black leading-tight text-left">
             A Graphic Designer
             <br />
             based in Hanoi,
@@ -48,12 +48,12 @@ export default function Hero({ onNext }) {
 
       {/* Nút "Let's get started!" */}
       <div
-        className="absolute bottom-6 right-4 sm:bottom-10 sm:right-6 md:bottom-26 md:right-8 z-10 cursor-pointer hover:scale-105 transition-transform
+        className="absolute bottom-6 right-4 sm:bottom-10 sm:right-6 md:bottom-26 md:right-20 z-10 cursor-pointer hover:scale-105 transition-transform
                    max-md:static max-md:mt-8 max-md:w-full max-md:text-center"
         onClick={onNext}
       >
         <h2
-          className="text-xl sm:text-2xl md:text-4xl font-display font-black text-black tracking-wide text-right
+          className="text-xl sm:text-2xl md:text-2xl font-display font-black text-black tracking-wide text-right
                      max-md:inline-block max-md:border-b-4 max-md:border-amber-500 max-md:pb-1 max-md:text-center"
         >
           Let's get started!

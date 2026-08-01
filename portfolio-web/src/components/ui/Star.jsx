@@ -14,7 +14,7 @@ export default function Star({ className, color = "currentColor", children }) {
           d="M60 15 L73 45 L105 45 L79 65 L89 95 L60 76 L31 95 L41 65 L15 45 L47 45 Z"
           fill={color}
           stroke={color}
-          strokeWidth="16"
+          strokeWidth="28"
           strokeLinejoin="round"
           strokeLinecap="round"
         />

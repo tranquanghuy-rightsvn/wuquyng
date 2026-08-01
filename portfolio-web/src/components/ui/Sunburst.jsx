@@ -29,7 +29,7 @@ export default function Sunburst({
              L43.1 33.4 Z"
           fill={color}
           stroke={color}
-          strokeWidth="6"
+          strokeWidth="10"
           strokeLinejoin="round"
         />
       </svg>

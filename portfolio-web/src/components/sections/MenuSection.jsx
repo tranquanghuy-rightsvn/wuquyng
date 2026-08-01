@@ -23,7 +23,7 @@ export default function MenuSection({ onNavigate, onClose }) {
       </div>
 
       <div className="absolute inset-0 w-full h-full">
-        <div className="absolute top-[20%] left-[10%] md:left-[15%] z-10">
+        <div className="absolute top-[20%] left-[15%] md:left-[15%] z-10">
           <div
             className="relative inline-block cursor-pointer group hover:scale-105 transition-transform"
             onClick={() => onNavigate("home")}
@@ -59,7 +59,7 @@ export default function MenuSection({ onNavigate, onClose }) {
           </div>
         </div>
 
-        <div className="absolute bottom-[15%] right-[10%] md:right-[20%] z-10">
+        <div className="absolute bottom-[15%] right-[15%] md:right-[20%] z-10">
           <div
             className="relative inline-block cursor-pointer group hover:scale-105 transition-transform"
             onClick={() => onNavigate("contact")}
