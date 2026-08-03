@@ -1,14 +1,31 @@
+import { useState } from "react";
 import Sparkle from "../ui/Sparkle";
-import Sunburst from "../ui/Sunburst"; // Đã đổi thành ngôi sao 8 cánh của bạn
+import Sunburst from "../ui/Sunburst";
 
 export default function Hero({ onNext }) {
+  // Thêm state để liên kết trạng thái hover của cả chữ và ngôi sao
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-center px-6 sm:px-10 md:px-24 py-10">
-      {/* Các khối Cam trang trí: Dùng Sunburst 8 cánh + màu text-brand-orange + absolute z-0 */}
+      {/* Ngôi sao trên cùng bên trái (Giữ nguyên màu cam) */}
       <Sunburst className="absolute z-0 text-brand-orange w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] -top-20 -left-20 md:-top-24 md:-left-32 transform -rotate-12" />
-      <Sunburst className="absolute z-0 text-brand-orange w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] -bottom-24 -right-20 md:-bottom-48 md:-right-32 transform rotate-12" />
 
-      {/* Rắc tia sáng (Giữ nguyên 100% code của bạn) */}
+      {/* Ngôi sao dưới cùng bên phải (Sẽ đổi màu khi isHovered = true) */}
+      <div
+        className="absolute z-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] -bottom-24 -right-20 md:-bottom-48 md:-right-32 transform rotate-12"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Sunburst
+          // Nếu đang hover thì màu xanh (text-brand-blue), ngược lại màu cam
+          className={`w-full h-full transition-colors duration-300 ${
+            isHovered ? "text-brand-blue" : "text-brand-orange"
+          }`}
+        />
+      </div>
+
+      {/* Rắc tia sáng */}
       <Sparkle className="w-8 h-8 sm:w-12 sm:h-12 top-4 left-10 sm:top-10 sm:left-64" />
       <Sparkle className="w-12 h-12 sm:w-20 sm:h-20 top-12 left-1/2 transform -translate-x-1/2 sm:top-24" />
       <Sparkle className="w-6 h-6 sm:w-10 sm:h-10 top-1/4 right-4 sm:right-8 md:right-32" />
@@ -48,13 +65,16 @@ export default function Hero({ onNext }) {
 
       {/* Nút "Let's get started!" */}
       <div
-        className="absolute bottom-6 right-4 sm:bottom-10 sm:right-6 md:bottom-26 md:right-20 z-10 cursor-pointer hover:scale-105 transition-transform
-                   max-md:static max-md:mt-8 max-md:w-full max-md:text-center"
+        className="absolute bottom-6 right-4 sm:bottom-10 sm:right-6 md:bottom-26 md:right-20 z-10 cursor-pointer hover:scale-105 transition-transform max-md:static max-md:mt-8 max-md:w-full max-md:text-center"
         onClick={onNext}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <h2
-          className="text-xl sm:text-2xl md:text-2xl font-display font-black text-black tracking-wide text-right
-                     max-md:inline-block max-md:border-b-4 max-md:border-amber-500 max-md:pb-1 max-md:text-center"
+          // Nếu đang hover thì màu trắng (text-white), ngược lại màu đen
+          className={`text-xl sm:text-2xl md:text-2xl font-display font-black tracking-wide text-right max-md:inline-block max-md:border-b-4 max-md:border-amber-500 max-md:pb-1 max-md:text-center transition-colors duration-300 ${
+            isHovered ? "text-white" : "text-black"
+          }`}
         >
           Let's get started!
         </h2>

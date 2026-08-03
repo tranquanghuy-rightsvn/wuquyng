@@ -80,7 +80,7 @@ export default function WorksSection({ onClose }) {
           className="absolute top-8 right-8 md:top-12 md:right-12 cursor-pointer z-50 hover:scale-110 transition-transform"
         >
           {/* Thu nhỏ nút tắt trên mobile */}
-          <Star className="w-12 h-12 md:w-16 md:h-16 text-brand-blue drop-shadow-md">
+          <Star className="w-12 h-12 md:w-16 md:h-16 text-brand-blue drop-shadow-md transition-transform duration-300">
             <div className="w-4 h-1 md:w-5 md:h-1.5 bg-brand-yellow rounded-full"></div>
           </Star>
         </div>
@@ -95,7 +95,8 @@ export default function WorksSection({ onClose }) {
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.phuc)}
         >
-          <Star className="w-full h-full text-brand-blue rotate-12 md:hover:scale-105 transition-transform drop-shadow-md">
+          {/* Thêm md:hover:rotate-[24deg] và duration-300 */}
+          <Star className="w-full h-full text-brand-blue rotate-12 md:hover:scale-105 md:hover:rotate-[24deg] transition-transform duration-300 drop-shadow-md">
             <span className={`${defaultTextStyle} text-white`}>
               Phuc
               <br />
@@ -129,7 +130,8 @@ export default function WorksSection({ onClose }) {
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.personal)}
         >
-          <Sunburst className="w-full h-full text-brand-yellow -rotate-2 md:hover:scale-105 transition-transform drop-shadow-md">
+          {/* Thêm md:hover:rotate-12 và duration-300 */}
+          <Sunburst className="w-full h-full text-brand-yellow -rotate-2 md:hover:scale-105 md:hover:rotate-12 transition-transform duration-300 drop-shadow-md">
             <span className={`${defaultTextStyle} text-brand-blue`}>
               Personal
               <br />
@@ -163,7 +165,8 @@ export default function WorksSection({ onClose }) {
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.dogout)}
         >
-          <Star className="w-full h-full text-brand-blue -rotate-12 md:hover:scale-105 transition-transform drop-shadow-md">
+          {/* Thêm md:hover:-rotate-[24deg] và duration-300 */}
+          <Star className="w-full h-full text-brand-blue -rotate-12 md:hover:scale-105 md:hover:-rotate-[24deg] transition-transform duration-300 drop-shadow-md">
             <span className={`${defaultTextStyle} text-white`}>Dog Out!</span>
           </Star>
           <AnimatePresence>
@@ -193,7 +196,8 @@ export default function WorksSection({ onClose }) {
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.foxy)}
         >
-          <Sunburst className="w-full h-full text-brand-yellow md:hover:scale-105 transition-transform drop-shadow-md">
+          {/* Thêm md:hover:rotate-12 và duration-300 */}
+          <Sunburst className="w-full h-full text-brand-yellow md:hover:scale-105 md:hover:rotate-12 transition-transform duration-300 drop-shadow-md">
             <span className={`${defaultTextStyle} text-brand-blue`}>Foxy</span>
           </Sunburst>
           <AnimatePresence>
@@ -223,7 +227,8 @@ export default function WorksSection({ onClose }) {
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.cjj)}
         >
-          <Star className="w-full h-full text-brand-blue rotate-12 md:hover:scale-105 transition-transform drop-shadow-md">
+          {/* Thêm md:hover:rotate-[24deg] và duration-300 */}
+          <Star className="w-full h-full text-brand-blue rotate-12 md:hover:scale-105 md:hover:rotate-[24deg] transition-transform duration-300 drop-shadow-md">
             <span className={`${defaultTextStyle} text-white`}>CJJ</span>
           </Star>
           <AnimatePresence>
@@ -253,7 +258,8 @@ export default function WorksSection({ onClose }) {
           onMouseLeave={() => setHoveredProject(null)}
           onClick={() => setSelectedProject(PROJECTS_DATA.drp)}
         >
-          <Sunburst className="w-full h-full text-brand-yellow md:hover:scale-105 transition-transform drop-shadow-md">
+          {/* Thêm md:hover:-rotate-12 và duration-300 */}
+          <Sunburst className="w-full h-full text-brand-yellow md:hover:scale-105 md:hover:-rotate-12 transition-transform duration-300 drop-shadow-md">
             <span className={`${defaultTextStyle} text-brand-blue`}>DRP</span>
           </Sunburst>
           <AnimatePresence>
