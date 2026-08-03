@@ -4,11 +4,13 @@ import Star from "../ui/Star";
 import Sunburst from "../ui/Sunburst";
 import ChatBubble from "../ui/ChatBubble";
 import ProjectDetail from "./ProjectDetail";
+import logoPhuc from "../../assets/images/phuc/logo.png";
 
 const PROJECTS_DATA = {
   phuc: {
     title: "Phuc Long",
     projectName: "Phuc Long",
+    logo: logoPhuc,
     date: "2023",
     descriptions: [
       "A collaborative packaging redesign project for Phuc Long, focused on reimagining the brand's tea gift box packaging.",

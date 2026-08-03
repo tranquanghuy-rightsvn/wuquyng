@@ -8,7 +8,6 @@ import PhucShowcase from "../showcases/PhucShowcase";
 import PersonalShowcase from "../showcases/PersonalShowcase";
 import FoxyShowcase from "../showcases/FoxyShowcase";
 
-// 1. TẠO CONTEXT ĐỂ KẾT NỐI VỚI CÁC BỨC ẢNH BÊN TRONG
 export const LightboxContext = createContext(null);
 
 const DefaultShowcase = () => (
@@ -23,8 +22,10 @@ const DefaultShowcase = () => (
 );
 
 export default function ProjectDetail({ project, onClose }) {
-  // Biến theo dõi xem có ảnh nào đang phóng to không
+  // Quản lý Lightbox của các hình Showcase bên dưới
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  // Quản lý Lightbox riêng cho Logo
+  const [isLogoZoomed, setIsLogoZoomed] = useState(false);
 
   if (!project) return null;
 
@@ -61,8 +62,19 @@ export default function ProjectDetail({ project, onClose }) {
     }
   };
 
+  // Hàm mở Logo Full màn hình
+  const openLogoZoom = () => {
+    setIsLogoZoomed(true);
+    setIsLightboxOpen(true); // Ẩn nút Dấu Trừ góc trên phải đi
+  };
+
+  // Hàm tắt Logo Full màn hình
+  const closeLogoZoom = () => {
+    setIsLogoZoomed(false);
+    setIsLightboxOpen(false); // Hiện lại nút Dấu Trừ
+  };
+
   return (
-    // 2. GÓI TOÀN BỘ BẰNG PROVIDER ĐỂ BÁO TÍN HIỆU XUỐNG DƯỚI
     <LightboxContext.Provider value={setIsLightboxOpen}>
       <motion.div
         initial="hidden"
@@ -70,13 +82,39 @@ export default function ProjectDetail({ project, onClose }) {
         exit="exit"
         className="fixed inset-0 z-[100] w-full h-full bg-brand-cream overflow-y-auto overflow-x-hidden"
       >
-        {/* NÚT TẮT DẤU TRỪ CHÍNH */}
+        {/* ==============================================================
+            1. MODAL PHÓNG TO LOGO (Sẽ hiện ra khi bấm vào Logo)
+            ============================================================== */}
         <AnimatePresence>
-          {!isLightboxOpen && ( // Chỉ hiện ra khi KHÔNG CÓ ảnh nào đang mở
+          {isLogoZoomed && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeLogoZoom}
+              className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-8 backdrop-blur-sm cursor-zoom-out"
+            >
+              <motion.img
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.5, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                src={project.logo}
+                alt={project.title}
+                // Dùng object-contain để hiển thị Full không cắt xén trên nền đen
+                className="w-full h-full max-w-5xl max-h-[85vh] object-contain drop-shadow-2xl"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* NÚT TẮT DẤU TRỪ CHÍNH CỦA PROJECT */}
+        <AnimatePresence>
+          {!isLightboxOpen && (
             <motion.div
               initial={{ opacity: 0, rotate: -180, scale: 0 }}
               animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }} // Hiệu ứng thu nhỏ biến mất khi mở ảnh
+              exit={{ opacity: 0, scale: 0 }}
               transition={{ type: "spring", delay: 0.1, stiffness: 200 }}
               onClick={onClose}
               className="fixed top-8 right-8 md:top-12 md:right-12 cursor-pointer z-50 hover:scale-110 transition-transform"
@@ -95,11 +133,27 @@ export default function ProjectDetail({ project, onClose }) {
         >
           <div className="w-full md:w-[45%] flex flex-col relative justify-center items-center md:items-start md:pl-10 lg:pl-20">
             <div className="flex flex-col items-center">
-              <motion.div
-                variants={slideUpVariants}
-                whileHover={{ scale: 1.05, rotate: 15 }}
-                className="w-40 h-40 md:w-56 md:h-56 bg-brand-yellow rounded-full shrink-0 border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] cursor-pointer"
-              ></motion.div>
+              {/* ==============================================================
+                  2. CHỖ HIỂN THỊ LOGO ĐÃ FIX "OBJECT-CONTAIN"
+                  ============================================================== */}
+              {project.logo ? (
+                <motion.img
+                  src={project.logo}
+                  alt={project.title}
+                  variants={slideUpVariants}
+                  whileHover={{ scale: 1.05, rotate: 15 }}
+                  onClick={openLogoZoom}
+                  // Đổi từ object-cover sang object-contain. Thêm p-6 md:p-8 để tạo khoảng cách đẹp mắt
+                  className="w-40 h-40 md:w-56 md:h-56 bg-brand-yellow rounded-full shrink-0 border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] cursor-zoom-in object-contain p-6 md:p-8"
+                />
+              ) : (
+                <motion.div
+                  variants={slideUpVariants}
+                  whileHover={{ scale: 1.05, rotate: 15 }}
+                  className="w-40 h-40 md:w-56 md:h-56 bg-brand-yellow rounded-full shrink-0 border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)]"
+                />
+              )}
+
               <motion.h2
                 variants={slideUpVariants}
                 className="text-[2.5rem] md:text-5xl font-display font-black text-black mt-8 text-center tracking-wide"

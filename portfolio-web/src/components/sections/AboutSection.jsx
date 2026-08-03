@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Star from "../ui/Star";
+import me from "../../assets/images/me/About me.jpg";
 
 export default function AboutSection({ onClose }) {
   return (
@@ -33,7 +34,11 @@ export default function AboutSection({ onClose }) {
           <div className="w-full aspect-square bg-brand-yellow border-8 border-black shadow-[12px_12px_0px_rgba(0,0,0,1)] rounded-2xl overflow-hidden relative group">
             {/* Đặt ảnh của Quỳnh ở đây */}
             <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-black/30 font-black text-2xl group-hover:scale-110 transition-transform duration-500">
-              [QUYNH'S PHOTO]
+              <img
+                src={me}
+                alt="Vu Thuy Quynh"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
