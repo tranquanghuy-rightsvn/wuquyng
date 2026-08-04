@@ -6,12 +6,16 @@ import MenuSection from "./components/sections/MenuSection";
 import WorksSection from "./components/sections/WorksSection";
 import AboutSection from "./components/sections/AboutSection";
 import ContactSection from "./components/sections/ContactSection";
+import HomePage from "./components/sections/HomePage";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  // State quản lý màn hình hiện tại: "hero" | "menu" | "works"
+  // Quản lý màn hình hiện tại
   const [currentScreen, setCurrentScreen] = useState("hero");
+
+  // THÊM MỚI: State lưu ID của project muốn mở thẳng vào Detail (ví dụ: "foxy", "dogout")
+  const [targetProject, setTargetProject] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,12 +25,29 @@ function App() {
   }, []);
 
   return (
-    <main className="w-full min-h-screen font-sans text-black overflow-hidden bg-brand-yellow">
+    <main className="w-full min-h-screen font-sans text-black overflow-x-hidden bg-brand-yellow">
       {isLoading ? (
         <Preloader />
       ) : (
-        // AnimatePresence giúp tạo hiệu ứng chuyển cảnh mượt mà giữa các component
         <AnimatePresence mode="wait">
+          {currentScreen === "home" && (
+            <motion.div
+              key="home"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* ĐÃ SỬA: Nhận tham số thứ 2 (projectId) và lưu vào state */}
+              <HomePage
+                onNavigate={(screen, projectId) => {
+                  setCurrentScreen(screen);
+                  if (projectId) setTargetProject(projectId);
+                }}
+              />
+            </motion.div>
+          )}
+
           {currentScreen === "hero" && (
             <motion.div
               key="hero"
@@ -62,7 +83,15 @@ function App() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <WorksSection onClose={() => setCurrentScreen("menu")} />
+              {/* ĐÃ SỬA: Truyền targetProject vào cho WorksSection */}
+              <WorksSection
+                initialProject={targetProject}
+                onClose={() => {
+                  setCurrentScreen("menu");
+                  setTargetProject(null); // Reset lại khi thoát ra menu
+                }}
+                onNavigate={(screen) => setCurrentScreen(screen)}
+              />
             </motion.div>
           )}
           {currentScreen === "about" && (

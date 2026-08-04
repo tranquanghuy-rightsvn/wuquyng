@@ -23,60 +23,59 @@ export default function FoxyShowcase() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
       {/* =========================================
-          BLOCK 1: 6 HÌNH GIF
+          BLOCK 1: 6 HÌNH GIF (SCROLL NGANG)
           ========================================= */}
+      <div className="col-span-1 md:col-span-2 lg:col-span-4 flex overflow-x-auto gap-4 md:gap-6 pb-6 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] w-full">
+        {/* 5 GIF Center - Kích thước đều nhau */}
+        <BentoItem
+          index={0}
+          imgSrc={gifCenter1}
+          title="Center GIF 1"
+          isGif={true}
+          spanClass="flex-none w-[85%] md:w-[45%] lg:w-[30%] snap-center aspect-video"
+        />
+        <BentoItem
+          index={1}
+          imgSrc={gifCenter2}
+          title="Center GIF 2"
+          isGif={true}
+          spanClass="flex-none w-[85%] md:w-[45%] lg:w-[30%] snap-center aspect-video"
+        />
+        <BentoItem
+          index={2}
+          imgSrc={gifCenter3}
+          title="Center GIF 3"
+          isGif={true}
+          spanClass="flex-none w-[85%] md:w-[45%] lg:w-[30%] snap-center aspect-video"
+        />
+        <BentoItem
+          index={3}
+          imgSrc={gifCenter4}
+          title="Center GIF 4"
+          isGif={true}
+          spanClass="flex-none w-[85%] md:w-[45%] lg:w-[30%] snap-center aspect-video"
+        />
+        <BentoItem
+          index={4}
+          imgSrc={gifCenter5}
+          title="Center GIF 5"
+          isGif={true}
+          spanClass="flex-none w-[85%] md:w-[45%] lg:w-[30%] snap-center aspect-video"
+        />
 
-      <BentoItem
-        index={0}
-        imgSrc={gifCenter1}
-        title="Center GIF 1"
-        isGif={true}
-        spanClass="col-span-1 md:col-span-2 lg:col-span-2 aspect-video"
-      />
-      <BentoItem
-        index={1}
-        imgSrc={gifCenter2}
-        title="Center GIF 2"
-        isGif={true}
-        spanClass="col-span-1 md:col-span-2 lg:col-span-2 aspect-video"
-      />
-
-      <BentoItem
-        index={2}
-        imgSrc={gifCenter3}
-        title="Center GIF 3"
-        isGif={true}
-        spanClass="col-span-1 md:col-span-2 lg:col-span-2 aspect-video"
-      />
-      <BentoItem
-        index={3}
-        imgSrc={gifCenter4}
-        title="Center GIF 4"
-        isGif={true}
-        spanClass="col-span-1 md:col-span-2 lg:col-span-2 aspect-video"
-      />
-
-      <BentoItem
-        index={4}
-        imgSrc={gifCenter5}
-        title="Center GIF 5"
-        isGif={true}
-        spanClass="col-span-1 md:col-span-2 lg:col-start-2 aspect-video"
-      />
-
-      {/* ĐIỂM NHẤN: GIF Cáo đi từ phải sang trái (Kéo full 4 cột) */}
-      <BentoItem
-        index={5}
-        imgSrc={gifFoxWalk}
-        title="Fox Walking (R -> L)"
-        isGif={true}
-        spanClass="col-span-1 md:col-span-2 lg:col-span-4 aspect-[21/9]"
-      />
+        {/* ĐIỂM NHẤN: GIF Cáo đi ngang - Cho khung to và rộng hơn */}
+        <BentoItem
+          index={5}
+          imgSrc={gifFoxWalk}
+          title="Fox Walking (R -> L)"
+          isGif={true}
+          spanClass="flex-none w-[90%] md:w-[70%] lg:w-[50%] snap-center aspect-[21/9]"
+        />
+      </div>
 
       {/* =========================================
-          BLOCK 2: 6 HÌNH ẢNH (Tỉ lệ 4/3)
+          BLOCK 2: 6 HÌNH ẢNH TĨNH (LƯỚI GRID)
           ========================================= */}
-
       <BentoItem
         index={6}
         imgSrc={img1}
@@ -115,11 +114,15 @@ export default function FoxyShowcase() {
         title="Foxy Image 6"
         spanClass="col-span-1 md:col-span-2 aspect-[4/3]"
       />
+
+      {/* =========================================
+          BLOCK 3: VIDEO (FULL WIDTH)
+          ========================================= */}
       <BentoItem
         index={12}
         videoSrc={foxyVideo}
         title="Foxy Final Trailer"
-        spanClass="col-span-1 md:col-span-2 lg:col-span-4 aspect-video mt-8"
+        spanClass="col-span-1 md:col-span-2 lg:col-span-4 aspect-video mt-4 md:mt-8"
       />
     </div>
   );

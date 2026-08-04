@@ -1,12 +1,14 @@
 import { useState, createContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Star from "../ui/Star";
+import Sunburst from "../ui/Sunburst";
 
 // Gọi component showcase
 import CJJShowcase from "../showcases/CJJShowcase";
 import PhucShowcase from "../showcases/PhucShowcase";
 import PersonalShowcase from "../showcases/PersonalShowcase";
 import FoxyShowcase from "../showcases/FoxyShowcase";
+import logoQuyhn from "../../assets/images/me/Logo.png";
 
 export const LightboxContext = createContext(null);
 
@@ -21,10 +23,13 @@ const DefaultShowcase = () => (
   </div>
 );
 
-export default function ProjectDetail({ project, onClose }) {
-  // Quản lý Lightbox của các hình Showcase bên dưới
+export default function ProjectDetail({
+  project,
+  onClose,
+  onNavigate,
+  onNextProject,
+}) {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  // Quản lý Lightbox riêng cho Logo
   const [isLogoZoomed, setIsLogoZoomed] = useState(false);
 
   if (!project) return null;
@@ -62,16 +67,14 @@ export default function ProjectDetail({ project, onClose }) {
     }
   };
 
-  // Hàm mở Logo Full màn hình
   const openLogoZoom = () => {
     setIsLogoZoomed(true);
-    setIsLightboxOpen(true); // Ẩn nút Dấu Trừ góc trên phải đi
+    setIsLightboxOpen(true);
   };
 
-  // Hàm tắt Logo Full màn hình
   const closeLogoZoom = () => {
     setIsLogoZoomed(false);
-    setIsLightboxOpen(false); // Hiện lại nút Dấu Trừ
+    setIsLightboxOpen(false);
   };
 
   return (
@@ -82,9 +85,7 @@ export default function ProjectDetail({ project, onClose }) {
         exit="exit"
         className="fixed inset-0 z-[100] w-full h-full bg-brand-cream overflow-y-auto overflow-x-hidden"
       >
-        {/* ==============================================================
-            1. MODAL PHÓNG TO LOGO (Sẽ hiện ra khi bấm vào Logo)
-            ============================================================== */}
+        {/* MODAL PHÓNG TO LOGO */}
         <AnimatePresence>
           {isLogoZoomed && (
             <motion.div
@@ -101,41 +102,52 @@ export default function ProjectDetail({ project, onClose }) {
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 src={project.logo}
                 alt={project.title}
-                // Dùng object-contain để hiển thị Full không cắt xén trên nền đen
                 className="w-full h-full max-w-5xl max-h-[85vh] object-contain drop-shadow-2xl"
               />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* NÚT TẮT DẤU TRỪ CHÍNH CỦA PROJECT */}
-        <AnimatePresence>
-          {!isLightboxOpen && (
-            <motion.div
-              initial={{ opacity: 0, rotate: -180, scale: 0 }}
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              transition={{ type: "spring", delay: 0.1, stiffness: 200 }}
-              onClick={onClose}
-              className="fixed top-8 right-8 md:top-12 md:right-12 cursor-pointer z-50 hover:scale-110 transition-transform"
-            >
-              <Star className="w-16 h-16 md:w-20 md:h-20 text-brand-blue drop-shadow-lg">
-                <div className="w-5 h-1.5 md:w-6 md:h-2 bg-brand-yellow rounded-full"></div>
-              </Star>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* ================= HEADER TƯƠNG TỰ HOME ================= */}
+        {/* Dùng absolute top-0 w-full để nằm ngay trên cùng như bản thiết kế */}
+        <header className="absolute top-0 left-0 w-full flex justify-between items-center px-6 md:px-12 lg:px-20 py-6 z-50">
+          <div
+            onClick={() => onNavigate && onNavigate("home")}
+            className="cursor-pointer hover:opacity-80 transition-opacity"
+          >
+            <img
+              src={logoQuyhn}
+              alt="Quyhn Logo"
+              className="h-8 md:h-10 lg:h-12 w-auto object-contain"
+            />
+          </div>
+
+          <AnimatePresence>
+            {!isLightboxOpen && (
+              <motion.div
+                initial={{ opacity: 0, rotate: -180, scale: 0 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ type: "spring", delay: 0.1, stiffness: 200 }}
+                // Khi bấm thì gọi onClose để thoát chế độ xem chi tiết
+                onClick={onClose}
+                className="cursor-pointer hover:scale-110 transition-transform duration-500 relative z-50"
+              >
+                <Star className="w-12 h-12 md:w-16 md:h-16 text-brand-blue flex items-center justify-center">
+                  <div className="w-4 h-1.5 bg-brand-yellow rounded-full"></div>
+                </Star>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </header>
 
         {/* NỬA TRÊN: GIỚI THIỆU */}
         <motion.div
           variants={containerVariants}
-          className="relative z-10 w-full min-h-[90vh] max-w-[90rem] mx-auto px-8 md:px-16 lg:px-24 pt-24 md:pt-32 flex flex-col md:flex-row items-center"
+          className="relative z-10 w-full min-h-[85vh] max-w-[90rem] mx-auto px-8 md:px-16 lg:px-24 pt-24 md:pt-32 flex flex-col md:flex-row items-center"
         >
           <div className="w-full md:w-[45%] flex flex-col relative justify-center items-center md:items-start md:pl-10 lg:pl-20">
             <div className="flex flex-col items-center">
-              {/* ==============================================================
-                  2. CHỖ HIỂN THỊ LOGO ĐÃ FIX "OBJECT-CONTAIN"
-                  ============================================================== */}
               {project.logo ? (
                 <motion.img
                   src={project.logo}
@@ -143,14 +155,12 @@ export default function ProjectDetail({ project, onClose }) {
                   variants={slideUpVariants}
                   whileHover={{ scale: 1.05, rotate: 15 }}
                   onClick={openLogoZoom}
-                  // Đổi từ object-cover sang object-contain. Thêm p-6 md:p-8 để tạo khoảng cách đẹp mắt
-                  className="w-40 h-40 md:w-56 md:h-56 bg-brand-yellow rounded-full shrink-0 border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] cursor-zoom-in object-contain p-6 md:p-8"
+                  className="w-40 h-40 md:w-56 md:h-56 shrink-0 cursor-zoom-in object-contain"
                 />
               ) : (
                 <motion.div
                   variants={slideUpVariants}
-                  whileHover={{ scale: 1.05, rotate: 15 }}
-                  className="w-40 h-40 md:w-56 md:h-56 bg-brand-yellow rounded-full shrink-0 border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)]"
+                  className="w-40 h-40 md:w-56 md:h-56 shrink-0"
                 />
               )}
 
@@ -183,20 +193,111 @@ export default function ProjectDetail({ project, onClose }) {
           </div>
         </motion.div>
 
-        {/* NỬA DƯỚI: KHỐI VÀNG CHỨA ẢNH */}
+        {/* NỬA DƯỚI: KHU VỰC SHOWCASE */}
         <motion.div
-          initial={{ y: 200, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", bounce: 0.1, duration: 1, delay: 0.3 }}
-          className="relative w-full bg-brand-yellow rounded-t-[3rem] md:rounded-t-[4rem] z-20 mt-12 pb-32 border-t-4 border-black shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.2)]"
+          className="relative w-full z-20 mt-12"
         >
-          <div className="max-w-[90rem] mx-auto px-8 md:px-16 lg:px-24 pt-20 pb-12">
+          <div className="max-w-[90rem] mx-auto px-8 md:px-16 lg:px-24 pt-10 pb-12">
             <h3 className="text-3xl md:text-4xl font-display font-black text-black uppercase tracking-widest border-b-4 border-black inline-block pb-2 mb-10">
               Showcase
             </h3>
             {renderShowcase()}
           </div>
         </motion.div>
+
+        {/* WRAPPER ĐỂ CHẶN PHẦN THỪA CỦA NGÔI SAO GÂY DƯ KHOẢNG TRẮNG Ở BOTTOM */}
+        <div className="relative w-full overflow-hidden md:mt-20">
+          {/* ĐIỀU HƯỚNG: NEXT PROJECT CTA */}
+          <div className="w-full relative h-28 md:h-57 max-w-[100rem] mx-auto z-10 flex justify-end items-end">
+            <div
+              onClick={onNextProject}
+              className="absolute bottom-0 right-0 flex items-end justify-end cursor-pointer group"
+            >
+              {/* Bong bóng chat vàng nhạt */}
+              <div className="relative bg-[#eedd3b] text-black font-black text-sm md:text-xl px-8 md:px-12 py-5 md:py-8 rounded-xl md:rounded-2xl z-30 mr-12 md:mr-40 mb-10 md:mb-16 group-hover:-translate-x-4 transition-transform duration-500 shadow-md whitespace-nowrap">
+                Go to the next project :3
+                <div className="absolute top-[65%] -right-[10px] md:-right-[16px] -translate-y-1/2 w-0 h-0 border-y-[8px] md:border-y-[12px] border-y-transparent border-l-[12px] md:border-l-[20px] border-l-[#eedd3b] rotate-[15deg]"></div>
+              </div>
+
+              {/* Ngôi sao cam vàng đậm */}
+              <Sunburst className="absolute bottom-0 right-0 w-30 h-30 md:w-[15rem] md:h-[15rem] text-[#f1b916] translate-x-[30%] translate-y-[35%] group-hover:scale-110 transition-transform duration-500 flex items-center justify-center -z-10">
+                <svg
+                  className="w-10 h-10 md:w-13 md:h-13 text-[#eedd3b] -translate-x-4 md:-translate-x-8 -translate-y-4 md:-translate-y-8"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="6"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </Sunburst>
+            </div>
+          </div>
+
+          {/* FOOTER */}
+          <footer className="w-full py-6 md:py-10 px-6 md:px-16 lg:px-24 flex flex-col md:flex-row justify-between items-center text-[#1e14cc] font-black text-[0.65rem] md:text-sm tracking-wider z-20 relative bg-[#eedd3b]">
+            <div className="flex items-center gap-6 md:gap-10 mb-6 md:mb-0">
+              <div
+                onClick={() => onNavigate && onNavigate("contact")}
+                className="relative group cursor-pointer flex items-center justify-center w-12 h-12 md:w-16 md:h-16 hover:scale-105 transition-transform"
+              >
+                <svg
+                  viewBox="0 0 100 100"
+                  className="absolute w-full h-full text-[#1e14cc] group-hover:rotate-90 transition-transform duration-500"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    d="M50 5 L56.9 33.4 L81.8 18.2 L66.6 43.1 L95 50 L66.6 56.9 L81.8 81.8 L56.9 66.6 L50 95 L43.1 66.6 L18.2 81.8 L33.4 56.9 L5 50 L33.4 43.1 L18.2 18.2 L43.1 33.4 Z"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span className="text-center leading-[1.1] text-[0.55rem] md:text-[0.65rem] uppercase">
+                  Contact
+                  <br />
+                  Me
+                </span>
+              </div>
+              <span className="cursor-pointer hover:scale-110 transition-transform text-2xl md:text-4xl font-bold tracking-tighter">
+                in
+              </span>
+              <span className="cursor-pointer hover:scale-110 transition-transform text-2xl md:text-4xl font-bold tracking-tighter">
+                Bē
+              </span>
+              <div className="relative group cursor-pointer flex items-center justify-center w-12 h-12 md:w-16 md:h-16">
+                <svg
+                  viewBox="0 0 100 100"
+                  className="absolute w-full h-full text-[#1e14cc] group-hover:rotate-90 transition-transform duration-500"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    d="M50 5 L56.9 33.4 L81.8 18.2 L66.6 43.1 L95 50 L66.6 56.9 L81.8 81.8 L56.9 66.6 L50 95 L43.1 66.6 L18.2 81.8 L33.4 56.9 L5 50 L33.4 43.1 L18.2 18.2 L43.1 33.4 Z"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span className="text-center leading-[1.1] text-[0.55rem] md:text-[0.65rem] uppercase">
+                  MY CV
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-row items-center justify-between w-full md:w-auto gap-4 md:gap-12 opacity-90">
+              <span className="cursor-pointer hover:underline lowercase">
+                quyhnvt1523@gmail.com
+              </span>
+              <span>Call me: (+84) 353 125 243</span>
+            </div>
+          </footer>
+        </div>
       </motion.div>
     </LightboxContext.Provider>
   );
