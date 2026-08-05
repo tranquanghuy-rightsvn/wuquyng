@@ -8,6 +8,8 @@ import CJJShowcase from "../showcases/CJJShowcase";
 import PhucShowcase from "../showcases/PhucShowcase";
 import PersonalShowcase from "../showcases/PersonalShowcase";
 import FoxyShowcase from "../showcases/FoxyShowcase";
+import DRPShowcase from "../showcases/DRPShowcase";
+import DogoutShowcase from "../showcases/DogoutShowcase";
 import logoQuyhn from "../../assets/images/me/Logo.png";
 
 export const LightboxContext = createContext(null);
@@ -62,6 +64,10 @@ export default function ProjectDetail({
         return <PersonalShowcase />;
       case "Foxy":
         return <FoxyShowcase />;
+      case "DRP":
+        return <DRPShowcase />;
+      case "Dog Out!":
+        return <DogoutShowcase />;
       default:
         return <DefaultShowcase />;
     }
@@ -209,7 +215,7 @@ export default function ProjectDetail({
         </motion.div>
 
         {/* WRAPPER ĐỂ CHẶN PHẦN THỪA CỦA NGÔI SAO GÂY DƯ KHOẢNG TRẮNG Ở BOTTOM */}
-        <div className="relative w-full overflow-hidden md:mt-20">
+        <div className="relative w-full overflow-hidden">
           {/* ĐIỀU HƯỚNG: NEXT PROJECT CTA */}
           <div className="w-full relative h-28 md:h-57 max-w-[100rem] mx-auto z-10 flex justify-end items-end">
             <div
@@ -266,12 +272,22 @@ export default function ProjectDetail({
                   Me
                 </span>
               </div>
-              <span className="cursor-pointer hover:scale-110 transition-transform text-2xl md:text-4xl font-bold tracking-tighter">
+              <a
+                href="https://www.behance.net/quynhvu26"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer hover:scale-110 transition-transform text-2xl md:text-4xl font-bold tracking-tighter"
+              >
                 in
-              </span>
-              <span className="cursor-pointer hover:scale-110 transition-transform text-2xl md:text-4xl font-bold tracking-tighter">
+              </a>
+              <a
+                href="https://www.behance.net/quynhvu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer hover:scale-110 transition-transform text-2xl md:text-4xl font-bold tracking-tighter"
+              >
                 Bē
-              </span>
+              </a>
               <div className="relative group cursor-pointer flex items-center justify-center w-12 h-12 md:w-16 md:h-16">
                 <svg
                   viewBox="0 0 100 100"

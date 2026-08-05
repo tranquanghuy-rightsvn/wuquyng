@@ -56,7 +56,7 @@ function App() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Hero onNext={() => setCurrentScreen("menu")} />
+              <Hero onNavigate={(screen) => setCurrentScreen(screen)} />
             </motion.div>
           )}
 

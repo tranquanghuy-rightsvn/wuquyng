@@ -6,13 +6,15 @@ import ChatBubble from "../ui/ChatBubble";
 import ProjectDetail from "./ProjectDetail";
 import logoPhuc from "../../assets/images/phuc/logo.png";
 import logoFoxy from "../../assets/images/foxy/Logo.png";
+import logoDog from "../../assets/images/dog/Logo.png";
+import logoDrp from "../../assets/images/drp/Logo_LMTL.png";
 
 const PROJECTS_DATA = {
   phuc: {
     title: "Phuc Long",
     projectName: "Phuc Long",
     logo: logoPhuc,
-    date: "2023",
+    date: "2026",
     descriptions: [
       "A collaborative packaging redesign project for Phuc Long, focused on reimagining the brand's tea gift box packaging.",
       "After exploring three design directions, we selected and refined a final concept featuring a soft, youthful, and feminine visual style.",
@@ -21,7 +23,7 @@ const PROJECTS_DATA = {
   personal: {
     title: "Personal Projects",
     projectName: "Various",
-    date: "2022 - 2023",
+    date: "2022 - 2026",
     descriptions: [
       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
     ],
@@ -29,7 +31,8 @@ const PROJECTS_DATA = {
   dogout: {
     title: "Dog Out!",
     projectName: "Dog Out",
-    date: "2023",
+    logo: logoDog,
+    date: "2026",
     descriptions: [
       "A collaborative game development project focused on creating Dog Out, a 2D platform runner inspired by the gameplay mechanics of Google Chrome's Dinosaur Game.",
     ],
@@ -38,7 +41,7 @@ const PROJECTS_DATA = {
     title: "Foxy",
     projectName: "Foxy",
     logo: logoFoxy,
-    date: "2023",
+    date: "2026",
     descriptions: [
       "A collaborative UX/UI project focused on creating a friendly English-learning mobile application for Vietnamese users.",
       "My contribution centered on the visual design aspects of the project, including the user interface, mascot design, emoji system.",
@@ -47,7 +50,7 @@ const PROJECTS_DATA = {
   cjj: {
     title: "CJJ",
     projectName: "Phuc Long",
-    date: "2023",
+    date: "2026",
     descriptions: [
       "Citadel Jazz Jam is a branding project for a jazz music festival inspired by the fusion of jazz and Vietnamese cultural heritage.",
       "The branding system is applied across stationery, social media, wayfinding signage, and floor plans, creating a consistent experience.",
@@ -56,7 +59,8 @@ const PROJECTS_DATA = {
   drp: {
     title: "DRP",
     projectName: "DRP System",
-    date: "2023",
+    logo: logoDrp,
+    date: "2026",
     descriptions: [
       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
     ],

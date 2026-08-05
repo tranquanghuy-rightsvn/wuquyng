@@ -2,7 +2,8 @@ import { useState } from "react";
 import Sparkle from "../ui/Sparkle";
 import Sunburst from "../ui/Sunburst";
 
-export default function Hero({ onNext }) {
+// ĐÃ SỬA: Đổi prop onNext thành onNavigate
+export default function Hero({ onNavigate }) {
   // Thêm state để liên kết trạng thái hover của cả chữ và ngôi sao
   const [isHovered, setIsHovered] = useState(false);
 
@@ -66,7 +67,8 @@ export default function Hero({ onNext }) {
       {/* Nút "Let's get started!" */}
       <div
         className="absolute bottom-6 right-4 sm:bottom-10 sm:right-6 md:bottom-26 md:right-20 z-10 cursor-pointer hover:scale-105 transition-transform max-md:static max-md:mt-8 max-md:w-full max-md:text-center"
-        onClick={onNext}
+        // ĐÃ SỬA: Gọi onNavigate("home") để chuyển sang trang Home
+        onClick={() => onNavigate("home")}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
