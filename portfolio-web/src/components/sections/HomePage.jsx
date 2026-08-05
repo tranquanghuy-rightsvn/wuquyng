@@ -4,6 +4,7 @@ import Sunburst from "../ui/Sunburst";
 import Sparkle from "../ui/Sparkle";
 import logoQuyhn from "../../assets/images/me/Logo.png";
 import dogoutBanner from "../../assets/images/dog/videodog.mp4";
+import foxyBanner from "../../assets/images/foxy/Phone_1.png";
 
 export default function HomePage({ onNavigate }) {
   const spinOnHover =
@@ -133,15 +134,17 @@ export default function HomePage({ onNavigate }) {
           {/* DANH SÁCH PROJECT CARDS */}
           <div className="space-y-12 md:space-y-20">
             {/* ================= CARD 1: FOXY (ẢNH) ================= */}
+            {/* ================= CARD 1: FOXY (ẢNH) ================= */}
             <div
-              className="relative w-full bg-[#dbe4ff] rounded-[1.5rem] md:rounded-[2.5rem] aspect-[4/3] md:aspect-[21/9] overflow-hidden cursor-pointer group shadow-lg"
+              className="relative w-full bg-gradient-to-r from-[#77D2F1] via-[#E7B1FE] to-[#F8D89D] rounded-[1.5rem] md:rounded-[2.5rem] aspect-[4/3] md:aspect-[21/9] overflow-hidden cursor-pointer group shadow-lg"
               // Đã sửa 2: Truyền ID cụ thể của project
               onClick={() => onNavigate("works", "foxy")}
             >
               <img
-                src="https://via.placeholder.com/1200x500/dbe4ff/1e14cc?text=Foxy+Banner"
+                src={foxyBanner}
                 alt="Foxy Project"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                // Dùng object-contain để ảnh điện thoại không nền hiển thị trọn vẹn, không bị cắt xén
+                className="w-full h-full object-contain p-4 md:p-8 transition-transform duration-500 group-hover:scale-105"
               />
 
               <div className="absolute bottom-0 right-0 flex items-center justify-end">
