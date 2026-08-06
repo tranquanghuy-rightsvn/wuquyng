@@ -8,7 +8,7 @@ import logoPhuc from "../../assets/images/phuc/logo.png";
 import logoFoxy from "../../assets/images/foxy/Logo.png";
 import logoDog from "../../assets/images/dog/Logo.png";
 import logoDrp from "../../assets/images/drp/Logo_LMTL.png";
-import logoCjj from "../../assets/images/cjj/logo.png";
+import logoCjj from "../../assets/images/cjj/Logo.png";
 
 const PROJECTS_DATA = {
   phuc: {
