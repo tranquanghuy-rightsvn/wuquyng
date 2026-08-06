@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LightboxContext } from "../sections/ProjectDetail";
 
-// THÊM PROP: videoSrc
 export default function BentoItem({
   title,
   spanClass,
@@ -41,7 +40,8 @@ export default function BentoItem({
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.4, delay: (index % 4) * 0.1 }}
         whileHover={{ y: -8, transition: { duration: 0.2 } }}
-        className={`group relative border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] rounded-xl overflow-hidden cursor-zoom-in will-change-transform ${isTransparent ? "bg-transparent" : "bg-white"} ${spanClass}`}
+        // ĐÃ SỬA: Xoá border-4 border-black, đổi shadow thành dạng bóng đổ mềm shadow-xl
+        className={`group relative shadow-xl rounded-xl overflow-hidden cursor-zoom-in will-change-transform ${isTransparent ? "bg-transparent" : "bg-white"} ${spanClass}`}
       >
         <div
           className={`w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-500 will-change-transform ${!imgSrc && !videoSrc ? (isGif ? "bg-brand-orange/20" : isTransparent ? "bg-transparent" : "bg-gray-200") : ""}`}
@@ -107,23 +107,25 @@ export default function BentoItem({
               className="relative w-full max-w-[85vw] h-full max-h-[80vh] mt-12 md:mt-8 flex items-center justify-center"
             >
               {videoSrc ? (
-                // Nếu là Video thì hiện thanh controls để người dùng bật tiếng
+                // ĐÃ SỬA: Xoá border đen của video phóng to, bo góc và làm mềm bóng
                 <video
                   src={videoSrc}
                   autoPlay
                   controls
                   playsInline
-                  className="max-w-full max-h-full drop-shadow-[10px_15px_0px_rgba(0,0,0,0.4)] border-4 border-black bg-black"
+                  className="max-w-full max-h-full rounded-xl drop-shadow-2xl bg-black"
                 />
               ) : imgSrc ? (
+                // ĐÃ SỬA: Xoá border đen của ảnh phóng to, bo góc và làm mềm bóng
                 <img
                   src={imgSrc}
                   alt={title}
-                  className={`max-w-full max-h-full object-contain drop-shadow-[10px_15px_0px_rgba(0,0,0,0.4)] ${isTransparent ? "" : "border-4 border-black bg-white"}`}
+                  className={`max-w-full max-h-full object-contain rounded-xl drop-shadow-2xl ${isTransparent ? "" : "bg-white"}`}
                 />
               ) : (
                 <div
-                  className={`border-4 border-black w-full h-full min-h-[50vh] flex items-center justify-center text-3xl font-display font-black text-black/40 ${isTransparent ? "bg-brand-cream" : "bg-gray-200"}`}
+                  // ĐÃ SỬA: Xoá border đen của placeholder
+                  className={`w-full h-full min-h-[50vh] rounded-xl flex items-center justify-center text-3xl font-display font-black text-black/40 ${isTransparent ? "bg-brand-cream" : "bg-gray-200"}`}
                 >
                   {title} (Full Size)
                 </div>

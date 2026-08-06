@@ -36,6 +36,20 @@ export default function ProjectDetail({
 
   if (!project) return null;
 
+  // =========================================================================
+  // XỬ LÝ NGOẠI LỆ CHO PERSONAL PROJECTS:
+  // Trả về component Showcase dưới dạng trang độc lập, bỏ qua layout chung.
+  // =========================================================================
+  if (project.title === "Personal Projects") {
+    return (
+      <PersonalShowcase
+        onClose={onClose}
+        onNavigate={onNavigate}
+        onNextProject={onNextProject}
+      />
+    );
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -60,8 +74,6 @@ export default function ProjectDetail({
         return <CJJShowcase />;
       case "Phuc Long":
         return <PhucShowcase />;
-      case "Personal Projects":
-        return <PersonalShowcase />;
       case "Foxy":
         return <FoxyShowcase />;
       case "DRP":
