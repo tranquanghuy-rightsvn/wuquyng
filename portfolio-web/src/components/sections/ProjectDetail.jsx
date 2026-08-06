@@ -127,7 +127,6 @@ export default function ProjectDetail({
         </AnimatePresence>
 
         {/* ================= HEADER TƯƠNG TỰ HOME ================= */}
-        {/* Dùng absolute top-0 w-full để nằm ngay trên cùng như bản thiết kế */}
         <header className="absolute top-0 left-0 w-full flex justify-between items-center px-6 md:px-12 lg:px-20 py-6 z-50">
           <div
             onClick={() => onNavigate && onNavigate("home")}
@@ -147,7 +146,6 @@ export default function ProjectDetail({
                 animate={{ opacity: 1, rotate: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0 }}
                 transition={{ type: "spring", delay: 0.1, stiffness: 200 }}
-                // Khi bấm thì gọi onClose để thoát chế độ xem chi tiết
                 onClick={onClose}
                 className="cursor-pointer hover:scale-110 transition-transform duration-500 relative z-50"
               >
@@ -162,10 +160,11 @@ export default function ProjectDetail({
         {/* NỬA TRÊN: GIỚI THIỆU */}
         <motion.div
           variants={containerVariants}
-          className="relative z-10 w-full min-h-[85vh] max-w-[90rem] mx-auto px-8 md:px-16 lg:px-24 pt-24 md:pt-32 flex flex-col md:flex-row items-center"
+          className="relative z-10 w-full min-h-[85vh] max-w-[90rem] mx-auto px-8 md:px-16 lg:px-24 pt-24 md:pt-32 flex flex-col md:flex-row items-center justify-between"
         >
-          <div className="w-full md:w-[45%] flex flex-col relative justify-center items-center md:items-start md:pl-10 lg:pl-20">
-            <div className="flex flex-col items-center">
+          {/* KHỐI TRÁI: Logo và Thông tin Project */}
+          <div className="w-full md:w-[40%] flex flex-col relative justify-center items-center">
+            <div className="flex flex-col items-center w-full">
               {project.logo ? (
                 <motion.img
                   src={project.logo}
@@ -182,26 +181,21 @@ export default function ProjectDetail({
                 />
               )}
 
-              <motion.h2
+              {/* ĐÃ SỬA: Xóa đoạn render thẻ h2 chứa project.title ở đây */}
+
+              <motion.div
                 variants={slideUpVariants}
-                className="text-[2.5rem] md:text-5xl font-display font-black text-black mt-8 text-center tracking-wide"
+                className="mt-8 md:mt-12 w-full flex flex-row justify-center items-center gap-6 md:gap-12 text-xs md:text-sm font-black uppercase tracking-wider text-black px-4 md:px-0 text-center"
               >
-                {project.title}
-              </motion.h2>
+                <span>Project name: {project.projectName}</span>
+                <span>Date: {project.date}</span>
+              </motion.div>
             </div>
-            <motion.div
-              variants={slideUpVariants}
-              className="mt-12 md:mt-24 w-full flex flex-col md:flex-row justify-center md:justify-start md:gap-16 text-xs md:text-sm font-black uppercase tracking-wider text-black px-4 md:px-0"
-            >
-              <span className="mb-2 md:mb-0">
-                Project name: {project.projectName}
-              </span>
-              <span>Date: {project.date}</span>
-            </motion.div>
           </div>
 
-          <div className="w-full md:w-[55%] flex flex-col mt-12 md:mt-0 px-4 md:px-0 md:pr-20">
-            <div className="space-y-6 md:space-y-8 text-sm md:text-base lg:text-lg font-black leading-snug text-black max-w-2xl">
+          {/* KHỐI PHẢI: Mô tả */}
+          <div className="w-full md:w-[50%] flex flex-col mt-12 md:mt-0 px-4 md:px-0">
+            <div className="space-y-6 md:space-y-8 text-sm md:text-base lg:text-lg font-black leading-snug text-black w-full">
               {project.descriptions.map((desc, idx) => (
                 <motion.p key={idx} variants={slideUpVariants}>
                   {desc}
@@ -234,13 +228,11 @@ export default function ProjectDetail({
               onClick={onNextProject}
               className="absolute bottom-0 right-0 flex items-end justify-end cursor-pointer group"
             >
-              {/* Bong bóng chat vàng nhạt */}
               <div className="relative bg-[#eedd3b] text-black font-black text-sm md:text-xl px-8 md:px-12 py-5 md:py-8 rounded-xl md:rounded-2xl z-30 mr-12 md:mr-40 mb-10 md:mb-16 group-hover:-translate-x-4 transition-transform duration-500 shadow-md whitespace-nowrap">
                 Go to the next project :3
                 <div className="absolute top-[65%] -right-[10px] md:-right-[16px] -translate-y-1/2 w-0 h-0 border-y-[8px] md:border-y-[12px] border-y-transparent border-l-[12px] md:border-l-[20px] border-l-[#eedd3b] rotate-[15deg]"></div>
               </div>
 
-              {/* Ngôi sao cam vàng đậm */}
               <Sunburst className="absolute bottom-0 right-0 w-30 h-30 md:w-[15rem] md:h-[15rem] text-[#f1b916] translate-x-[30%] translate-y-[35%] group-hover:scale-110 transition-transform duration-500 flex items-center justify-center -z-10">
                 <svg
                   className="w-10 h-10 md:w-13 md:h-13 text-[#eedd3b] -translate-x-4 md:-translate-x-8 -translate-y-4 md:-translate-y-8"
