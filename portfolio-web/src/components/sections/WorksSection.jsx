@@ -8,6 +8,7 @@ import logoPhuc from "../../assets/images/phuc/logo.png";
 import logoFoxy from "../../assets/images/foxy/Logo.png";
 import logoDog from "../../assets/images/dog/Logo.png";
 import logoDrp from "../../assets/images/drp/Logo_LMTL.png";
+import logoCjj from "../../assets/images/cjj/logo.png";
 
 const PROJECTS_DATA = {
   phuc: {
@@ -49,7 +50,8 @@ const PROJECTS_DATA = {
   },
   cjj: {
     title: "CJJ",
-    projectName: "Phuc Long",
+    projectName: "CITADEL JAZZ JAM ",
+    logo: logoCjj,
     date: "2026",
     descriptions: [
       "Citadel Jazz Jam is a branding project for a jazz music festival inspired by the fusion of jazz and Vietnamese cultural heritage.",
