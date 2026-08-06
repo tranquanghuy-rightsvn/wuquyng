@@ -18,10 +18,26 @@ import img6 from "../../assets/images/foxy/img-6.jpg";
 
 // 3. Import 1 File Video (.mp4)
 import foxyVideo from "../../assets/videos/foxy-video.mp4";
+import foxyBanner from "../../assets/images/foxy/Phone_1.png";
 
 export default function FoxyShowcase() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      {/* =========================================
+          BANNER GRADIENT (ĐÃ FIX KÉO FULL CHIỀU NGANG)
+          ========================================= */}
+      <div
+        // Đã sửa: Thêm col-span để kéo full màn hình, gỡ bỏ onClick dư thừa
+        className="col-span-1 md:col-span-2 lg:col-span-4 relative w-full bg-gradient-to-r from-[#77D2F1] via-[#E7B1FE] to-[#F8D89D] rounded-[1.5rem] md:rounded-[2.5rem] aspect-[4/3] md:aspect-[21/9] overflow-hidden group shadow-lg"
+      >
+        <img
+          src={foxyBanner}
+          alt="Foxy Project"
+          // Dùng object-contain để ảnh điện thoại không nền hiển thị trọn vẹn, không bị cắt xén
+          className="w-full h-full object-contain p-4 md:p-8 transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+
       {/* =========================================
           BLOCK 1: 6 HÌNH GIF (SCROLL NGANG)
           ========================================= */}
